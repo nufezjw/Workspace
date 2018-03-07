@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="programmingIT-master/Week5_1"/>
+	<classpathentry kind="src" path="programmingIT-master/Week5_2"/>
+	<classpathentry kind="src" path="programmingIT-master/Week5_3"/>
+	<classpathentry kind="src" path="programmingIT-master/Week5_Tutorial"/>
+	<classpathentry kind="src" path="programmingIT-master/Week6_1"/>
+	<classpathentry kind="src" path="programmingIT-master/Week6_2"/>
+	<classpathentry kind="src" path="programmingIT-master/Week6_3"/>
+	<classpathentry kind="src" path="programmingIT-master/Week6_Tutorial"/>
+	<classpathentry kind="src" path="programmingIT-master/Week7_1"/>
+	<classpathentry kind="src" path="programmingIT-master/Week7_2"/>
+	<classpathentry kind="src" path="programmingIT-master/Week7_3"/>
+	<classpathentry kind="src" path="programmingIT-master/Week7_Tutorial"/>
+	<classpathentry kind="src" path="programmingIT-master/Week8_1"/>
+	<classpathentry kind="src" path="programmingIT-master/Week8_2"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
