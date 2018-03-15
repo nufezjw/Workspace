@@ -1,9 +1,5 @@
-/**
- * Advanced Programming AE1
- * * @author Jianwen ZHOU 2301457Z
- *
- */
-public class APSpec1 {
+
+public class APTest {
 	public static void main(String[] args) {
 		Intersection intersection=new Intersection(10,20);	
 		Hgenerator we=new Hgenerator(intersection,"-",200,"WE",1);
@@ -18,4 +14,10 @@ public class APSpec1 {
 			ns.join();
 		}catch(InterruptedException e) {}
 		}
+	
+	//test whether the car will fall off when it reach the opposite edge
+	public void test1() {
+		Intersection intersection=new Intersection(10,20);	
+		Hgenerator we=new Hgenerator(intersection,"-",200,"WE",1);
+	}
 }

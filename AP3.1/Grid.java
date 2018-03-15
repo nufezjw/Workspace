@@ -6,19 +6,19 @@ public class Grid {
 	private boolean isOccupied;
 	
 	//guarantee only one vehicle can be in one grid square
-	private ReentrantLock gridlock=new ReentrantLock();
-	private Condition empty=gridlock.newCondition();
+	private ReentrantLock gridLock=new ReentrantLock();
+	private Condition empty=gridLock.newCondition();
 	
 	public Grid() {
-		gridCar=null;
-		isOccupied=false;
+		this.gridCar=null;
+		this.isOccupied=false;
 	}
 	
 	/**
 	 * a car enters one grid square
 	 */
 	public void enterGrid(Car car) {
-		gridlock.lock();
+		gridLock.lock();
 		try {
 			while(isOccupied) {
 				empty.await();
@@ -28,7 +28,7 @@ public class Grid {
 		}catch(InterruptedException e) {
 			e.printStackTrace();
 		}finally {
-			gridlock.unlock();
+			gridLock.unlock();
 		}
 	}
 	
@@ -36,13 +36,13 @@ public class Grid {
 	 * a car leave one grid square
 	 */
 	public void leaveGrid() {
-		gridlock.lock();
+		gridLock.lock();
 		try {
-			isOccupied=false;
 			gridCar=null;
+			isOccupied=false;	
 			empty.signalAll();
 		}finally {
-			gridlock.unlock();
+			gridLock.unlock();
 		}
 	}
 	

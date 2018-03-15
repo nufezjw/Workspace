@@ -10,10 +10,21 @@ public class Draw extends Thread {
 	}
 	
 	/**
+	 * method to draw the "---------"
+	 */
+	public void drawLine() {
+		for(int i=0;i<2*intersection.getColumns()+1;i++) {
+			System.out.print("-");
+		}
+		System.out.println();
+	}
+	
+	/**
 	 * method to draw the lanes
 	 */
 	public void drawLane() {
 		try {
+			//clear the command line after each draw
 			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -26,10 +37,10 @@ public class Draw extends Thread {
 		for(int i=0;i<intersection.getRows();i++) {
 			for(int j=0;j<intersection.getColumns();j++) {
 				Car gridCar=intersection.getGrids()[i][j].getGridCar();
-				if(gridCar!=null) {
-					System.out.print("|"+gridCar.getSymbol());
+				if(gridCar==null) {
+					System.out.print("| ");	
 				}else
-					System.out.print("| ");
+					System.out.print("|"+gridCar.getSymbol());
 			}
 			System.out.println("|");
 		}
@@ -37,18 +48,8 @@ public class Draw extends Thread {
 		
 	}
 	
-	/**
-	 * method to draw the "---------"
-	 */
-	public void drawLine() {
-		for(int i=0;i<2*intersection.getColumns()+1;i++) {
-			System.out.print("-");
-		}
-		System.out.println();
-	}
-	
 	public void run() {
-		for(int i=1;i<2001;i++) { 
+		for(int i=0;i<2000;i++) { 
 		try {
 			sleep(drawFrequency);
 			drawLane();

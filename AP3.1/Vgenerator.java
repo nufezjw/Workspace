@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class HorizontalGenerator extends Thread {
+public class Vgenerator extends Thread{
 	private int x;
 	private int y;
-	private String symbol="-";
+	private String symbol;
 	private Intersection intersection;
 	private int generateSpeed;
 	private String direction;
@@ -15,18 +15,19 @@ public class HorizontalGenerator extends Thread {
 	private double overallTime;	//record the time the car traveling through the grid
 
 	
-	public HorizontalGenerator(Intersection intersection,int speed,String direction,int spec) {
+	public Vgenerator(Intersection intersection,String symbol,int speed,String direction,int spec) {
 		this.intersection=intersection;
+		this.symbol=symbol;
 		this.generateSpeed=speed;
 		this.direction=direction;
 		this.spec=spec;
-		carList=new ArrayList<>();
+		carList=new ArrayList<>();		
 	}
 	
 	/**
-	 * generate car from west to east or from east to west
+	 * generate car from north to south or from south to north
 	 * It is up to the choice of the main method(APSpec1 or APSpec2)
-	 * @return Car object
+	 * @return
 	 */
 	public Car generateCar() {
 		Random ran=new Random();
@@ -34,18 +35,19 @@ public class HorizontalGenerator extends Thread {
 		int colBoundary=intersection.getColumns();
 		Car geCar=null;
 		if(spec==1) {
-			x=ran.nextInt(rowBoundary);
-			y=0;
+			y=ran.nextInt(colBoundary);
+			x=0;
 			geCar=new Car(x,y,symbol,intersection,direction);
-		}else if(spec==2) {
+		}	
+		else if(spec==2) {
 			switch(direction) {
-			case "WE":
-				x=ran.nextInt(rowBoundary/2);
-				y=0;
+			case "NS":
+				y=ran.nextInt(colBoundary/2);
+				x=0;
 				break;
-			case "EW":
-				x=ran.nextInt(rowBoundary/2)+rowBoundary/2;
-				y=colBoundary-1;
+			case "SN":
+				y=ran.nextInt(colBoundary/2)+colBoundary/2;
+				x=rowBoundary-1;
 				break;
 			}
 			geCar=new Car(x,y,symbol,intersection,direction);
@@ -53,31 +55,35 @@ public class HorizontalGenerator extends Thread {
 		return geCar;	
 	}
 	
-	
 	public void run() {
+		//keep running until receiving the signal to stop 
 		while(!intersection.isSignal()) {
 			try {
 				sleep(generateSpeed);
 			}catch(InterruptedException e) {
 				e.printStackTrace();
 			}
-			Car geCar=generateCar();
-			carList.add(geCar);	//after generating a car, add it to the car list
-			geCar.addCar();
-			geCar.start();
-		}
-		getSumTravelTime();
-	}
-
-	/**
-	 * calculate the time each generator takes all vehicles it generates to travel through the grid
-	 */
-	public void getSumTravelTime() {
-		for(Car car:carList) {
-			overallTime=car.getGridTime()+overallTime;
-		}
+			startCar();
+		}	
+		getSumTravelTime(); 
 	}
 	
+	/**
+	 *start the car thread
+	 */
+	public void startCar() {
+		Car geCar=generateCar();
+		carList.add(geCar);	//after generating a car, add it to the car list
+		geCar.addCar();
+		geCar.start();
+	}
+	
+	private void getSumTravelTime() {
+		for(Car car:carList) {
+		overallTime=car.getGridTime()+overallTime;
+		}
+	}
+
 	public List<Car> getCarList() {
 		return carList;
 	}
@@ -105,6 +111,4 @@ public class HorizontalGenerator extends Thread {
 	public void setOverallTime(double overallTime) {
 		this.overallTime = overallTime;
 	}
-	
-	
 }

@@ -7,10 +7,10 @@ public class APSpec2 {
 	public static void main(String[] args) {
 		Intersection intersection=new Intersection(10,20);
 		//four car generators from different directions
-		HorizontalGenerator we=new HorizontalGenerator(intersection,200,"WE",2);
-		HorizontalGenerator ew=new HorizontalGenerator(intersection,300,"EW",2);
-		VerticalGenerator ns=new VerticalGenerator(intersection,200,"NS",2);
-		VerticalGenerator sn=new VerticalGenerator(intersection,250,"SN",2);
+		Hgenerator we=new Hgenerator(intersection,"-",200,"WE",2);
+		Hgenerator ew=new Hgenerator(intersection,"-",300,"EW",2);
+		Vgenerator ns=new Vgenerator(intersection,"o",200,"NS",2);
+		Vgenerator sn=new Vgenerator(intersection,"o",250,"SN",2);
 		Draw draw=new Draw(intersection);
 	
 		draw.start();
